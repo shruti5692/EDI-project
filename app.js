@@ -4,6 +4,12 @@ const mysql = require("mysql");
 const app = express();
 const port = 3000;
 
+const twilio = require('twilio');
+const accountSid = 'AC69d87e182d88a9ad4c770522c07f7013';
+const authToken = '018be90af12258406e2332de7808bb97';
+const twilioPhoneNumber = '+12525019277';
+const client = require('twilio')(accountSid, authToken);
+
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -13,12 +19,6 @@ const connection = mysql.createConnection({
     password: '1234',
     database: 'edi'
 });
-
-
-
-//const twilio = require('twilio')(accountSid, authToken);
-
-
 
 connection.connect(function(err) {
     if (err) {
@@ -101,24 +101,19 @@ app.get('/checkout', (req, res) => {
     res.send(`Checkout for user with ID: ${userId}`);
 });
 
-
-// Twilio credentials
-/*const accountSid = 'AC69d87e182d88a9ad4c770522c07f7013';
-const authToken = 'd0b6e4473aa1a2469da887a0c3b6279c';
-const twilioPhoneNumber = '+12525019277';
 app.get("/send-sms", function(req, res) {
     res.sendFile(__dirname + "/sms.html");
-});*/
-// Send SMS using Twilio
-/*app.post('/send-sms', function(req, res) {
+});
+
+app.post('/send-sms', function(req, res) {
     const phoneNumber = req.body.phoneNumber;
     const message = req.body.message;
 
-    twilio.messages
+    client.messages
         .create({
             body: message,
             from: twilioPhoneNumber,
-            to: 8767896477
+            to: phoneNumber
         })
         .then(message => {
             console.log('SMS sent successfully');
@@ -130,7 +125,24 @@ app.get("/send-sms", function(req, res) {
         });
 });
 
-*/
+// Handle incoming SMS messages
+app.post("/incoming-sms", (req, res) => {
+    const messageBody = req.body.Body;
+    const fromNumber = req.body.From;
+  
+    // Process the incoming message
+    console.log(`Received SMS from ${fromNumber}: ${messageBody}`);
+  
+    // You can perform any necessary processing here
+  
+    // Send a response back to the sender (optional)
+    const twiml = new twilio.twiml.MessagingResponse();
+    twiml.message("Thank you for your message.");
+  
+    res.set("Content-Type", "text/xml");
+    res.send(twiml.toString());
+  });
+
 
 app.listen(port, function() {
     console.log(`Server listening on port ${port}`);
