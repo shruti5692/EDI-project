@@ -1,0 +1,99 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+
+ .container {
+    background-color: #02051b;
+    height: 30vh;
+    width:100%;
+
+    padding:3vh auto;
+    padding-bottom: 10vh;
+    background-image: url('job-search-removebg.png');
+    background-size: cover;
+  }
+
+  h2 {
+    text-align: center;
+   
+  }
+
+  .form{
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
+  .form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .form input[type="text"] {
+   
+    width: 51%;
+    padding: 18px;
+    border: 1px solid #ccc;
+    border-radius: 38px;
+    margin-left: 20vw;
+    margin-top: 10vh;
+      
+
+  }
+
+  
+
+  .form button {
+    padding: 15px 35px;
+    background-color:  #ff8929;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 49px;
+    margin: 3vh 40vw;
+    position: relative;
+    left: 26vw;
+    bottom: 10vh;
+    
+  }
+
+  
+  .job-list {
+
+      display:flex;
+      flex-direction: row;
+   
+    list-style-type: none;
+    padding: 3vh ;
+   flex-wrap: wrap;
+  align-items: center;
+  }
+
+  .job-list li {
+      
+padding: 10px;
+background-color: #ffffff;
+border: 1px solid #ccc;
+
+border-radius: 4px;
+height: 30vh;
+width: 40vw;
+margin: 4vh 3vw;
+box-shadow: 0 0 10px #8393f1;
+}
+.job-list li:hover{
+  flex-grow: 2;
+
+}
+.apply{
+
+    width: 39%;
+    padding: 10px;
+    background-color: #4d67ff;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 6px;
+    margin: 10% 20%;
+  }
+
